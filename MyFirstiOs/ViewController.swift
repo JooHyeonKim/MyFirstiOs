@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         
         let action = UIAlertAction(title: "ok", style: .default, handler: {action in self.refresh()})
         //handler - 버튼을 눌렀을 때 어떤 행동을 해야하는지
-        //closure : {} closure는 파라미터를 받을 수 없다.
+        //closure : {} closure는 파라미터를 받을 수 있다.
         //ok 버튼을 누르고 나서 refresh(현상금 흰색글씨 변경)가 되어야 함.
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
