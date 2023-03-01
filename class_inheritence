@@ -1,0 +1,114 @@
+import UIKit
+
+
+struct Grade {
+    var letter: String
+    var points: Double
+    var credits: Double //학점
+}
+
+
+class Person {
+    var firstName: String
+    var lastName: String
+    
+    init(firstName: String, lastName: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+    }
+    
+    func printMyName() {
+        print("My name is \(firstName) \(lastName)")
+    }
+}
+
+class Student: Person{
+ 
+    var grades: [Grade] = []
+    
+    //Person이 쓰는 initializer 그대로 사용 가능
+    
+    //Person이 쓰는 함수도 그대로 사용 가능
+    
+    func recordGrade(_ grade: Grade){
+        grades.append(grade)
+    }
+}
+
+let puang = Person(firstName: "Puang", lastName: "Lee")
+let yj = Student(firstName: "yj", lastName: "kim")
+
+puang.firstName
+yj.firstName
+
+
+//puang.printMyName()
+//yj.printMyName() //상속받은 함수가 잘 작동함
+
+
+let math = Grade(letter: "B", points: 8.5, credits: 3.0)
+let history = Grade(letter: "A+", points: 10.0, credits: 4.0)
+
+yj.recordGrade(math)
+yj.recordGrade(history)
+yj.grades.count
+
+
+class StudentAthlete: Student{
+    var minimumTrainingTime: Int = 2
+    var trainedTime: Int = 0
+    
+    func train(){
+        trainedTime += 1
+    }
+}
+
+class FootballPlayer: StudentAthlete {
+    var footballTeam = "FC Swift"
+    
+    //override -> StudentAthlete 에서 정의된 함수에 기능 추가
+    override func train() {
+        trainedTime += 2
+    }
+}
+
+var athlete1 = StudentAthlete(firstName: "yuna", lastName: "kim")
+athlete1.trainedTime
+athlete1.train() //train을 하고 나면 1시간 증가
+athlete1.trainedTime
+
+var athlete2 = FootballPlayer(firstName: "HM", lastName: "Son")
+athlete2.trainedTime
+athlete2.train()
+athlete2.trainedTime
+athlete2.footballTeam
+
+
+func printFirstName(_ person: Person) {
+    print("---> first name: \(person.firstName)")
+}
+
+//Person -> Student -> StudentAthlete -> FootballPlayer
+//Person 클래스를 상속받고있기 때문에 가능
+printFirstName(athlete1)
+printFirstName(yj)
+
+
+//athlete1: StudentAthlete, athlete2:FootballPlayer
+//자식의 타입을 부모타입으로 type casting
+athlete1 = athlete2 as StudentAthlete
+
+athlete1.lastName
+athlete1.train()
+athlete1.trainedTime
+//athlete1.footballTeam
+//athlete1의 타입이 StudentAthlete이기 때문
+
+
+//StudentAthlete -> FootballPlayer 로 다운캐스팅
+if let son = athlete1 as? FootballPlayer {
+    print("---> name: \(son.lastName), team: \(son.footballTeam)")
+}
+    
+
+
